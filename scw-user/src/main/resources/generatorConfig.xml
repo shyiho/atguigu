@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+	
+		<!-- 抑制所有注释生成 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+	
+	
+		<!-- mvn mybatis-generator:generate 配置数据库位置 ，配置虚拟机上的mysql ip地址；不采用安全协议连接，否则无法逆向生成 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.203.98:3306/atcrowdfunding?useSSL=false"
+			userId="root" password="123456">
+		</jdbcConnection>
+
+		
+		
+		
+		<!-- 不需要讲数据库float,double类型映射为BigDecimal，直接映射成相对应的类型即可。 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!-- javaBean生成在哪里: atcrowdfunding-bean/com.atguigu.atcrowdfunding.bean-->
+		<javaModelGenerator
+			targetPackage="com.atguigu.scw.user.bean"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- sqlMap sql映射文件（xml mapper文件）:atcrowdfunding-manager-impl/mybatis/mapper/  -->
+		<sqlMapGenerator targetPackage="mybatis.mapper"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- javaClient：java接口生成的地方  ANNOTATEDMAPPER:atcrowdfunding-manager-api/com.atguigu.atcrowdfunding.mapper -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.atguigu.scw.user.mapper"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- %通配所有表，类名根据表名自动生成了。:默认使用驼峰命名转换数据库的_   t_admin== TAdmin -->
+		<!-- <table schema="" tableName="%"></table> -->
+		<table tableName="t_member"></table>
+		<table tableName="t_member_address"></table>
+		<table tableName="t_member_cert"></table>
+		<table tableName="t_member_project_follow"></table>
+		<table tableName="t_message"></table>
+
+	</context>
+</generatorConfiguration> 
